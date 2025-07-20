@@ -60,7 +60,7 @@ public class Reporte {
             Paragraph title = new Paragraph("Detalle de Cita Veterinaria", titleFont);
             title.setAlignment(Element.ALIGN_CENTER);
             document.add(title);
-            document.add(new Paragraph(" ")); // espacio
+            document.add(new Paragraph(" "));
 
             PdfPTable table = new PdfPTable(2);
             table.setWidthPercentage(100);

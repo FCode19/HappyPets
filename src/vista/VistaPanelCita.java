@@ -9,7 +9,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import negocio.DaoCita;
 import objetos.Cita;
-import objetos.Reporte;
 import static objetos.Reporte.generarCitaPDF;
 
 public class VistaPanelCita extends javax.swing.JFrame {
