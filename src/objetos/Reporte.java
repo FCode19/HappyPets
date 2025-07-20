@@ -2,6 +2,8 @@
 package objetos;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
+import java.awt.Desktop;
+import java.io.File;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 import java.io.FileOutputStream;
@@ -43,6 +45,57 @@ public class Reporte {
             JOptionPane.showMessageDialog(null, "PDF generado correctamente en: " + ruta);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+    
+    public static void generarCitaPDF(Cita cita) {
+        try {
+            Document document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream("cita_" + cita.getNumTicket() + ".pdf"));
+            document.open();
+
+            Font titleFont = new Font(Font.FontFamily.HELVETICA, 16, Font.BOLD);
+            Font normalFont = new Font(Font.FontFamily.HELVETICA, 12);
+
+            Paragraph title = new Paragraph("Detalle de Cita Veterinaria", titleFont);
+            title.setAlignment(Element.ALIGN_CENTER);
+            document.add(title);
+            document.add(new Paragraph(" ")); // espacio
+
+            PdfPTable table = new PdfPTable(2);
+            table.setWidthPercentage(100);
+
+            table.addCell("Ticket");
+            table.addCell(cita.getNumTicket());
+
+            table.addCell("Propietario");
+            table.addCell(cita.getPropietario() != null ? cita.getPropietario() : "--VACIO--");
+
+            table.addCell("Mascota");
+            table.addCell(cita.getMascota());
+
+            table.addCell("Veterinario");
+            table.addCell(cita.getMedico());
+
+            table.addCell("Fecha");
+            table.addCell(cita.getFecha());
+
+            table.addCell("Hora");
+            table.addCell(cita.getHora());
+
+            table.addCell("Consultorio");
+            table.addCell(cita.getConsultorio());
+
+            table.addCell("Especialidad");
+            table.addCell(cita.getEspecialidad());
+
+            document.add(table);
+            document.close();
+
+            Desktop.getDesktop().open(new File("cita_" + cita.getNumTicket() + ".pdf"));
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al generar PDF: " + e.getMessage());
         }
     }
 }
